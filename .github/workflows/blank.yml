@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Test SARIF
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  soos_dast_analysis_example:
+    name: SOOS DAST Analysis Example
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run SOOS DAST Analysis
+        uses: soos-io/soos-dast-github-action@v1.0.0-beta
+        with:
+          client_id: ${{ secrets.SOOS_CLIENT_ID }}
+          api_key: ${{ secrets.SOOS_API_KEY }}
+          project_name: "SOOS-FAngelino/test-sarif"
+          scan_mode: "baseline"
+          api_url: "https://qa-api.soos.io/api/"
+          target_url: "https://brokencrystals.com/"
+          gpat: ${{ secrets.SOOS_GITHUB_PAT }}
+          sarif: "true"
